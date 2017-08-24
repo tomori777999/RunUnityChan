@@ -9,10 +9,12 @@ public class ObstacleController : MonoBehaviour {
 	private bool isMoving = true;
 	// delegate == コールバックのようなもの? 要調査
 	public event Action CollidedWithUnityChan = delegate {};
+
+	private bool isGameOver = false;
 	
 	// Update is called once per frame
 	void Update () {
-		if ( this.isMoving ) {
+		if ( !this.isGameOver && this.isMoving ) {
 			Vector3 diff = new Vector3(0.0f, 0.0f, 1.2f) * Time.deltaTime;
 			this.gameObject.transform.position -= diff;
 		}
@@ -27,5 +29,9 @@ public class ObstacleController : MonoBehaviour {
 		if ( collision.gameObject.tag.Contains("UnityChan") ) {
 			this.CollidedWithUnityChan();
 		}
+	}
+
+	public void stopObstacle () {
+		this.isGameOver = true;
 	}
 }

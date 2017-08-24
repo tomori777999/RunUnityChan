@@ -52,5 +52,11 @@ public class RunUnityChanController : MonoBehaviour {
 		}
         this.unityChanController.OnCollidedWithObstacle();
         this.isGameOver = true;
+
+		//全ての"Obstacle"タグを持つGameObjectを配列で取得 -> 付属するScriptのメソッド呼び出し
+		GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+		foreach( GameObject obstacle in obstacles ) {
+			obstacle.GetComponent<ObstacleController>().stopObstacle();
+		}
 	}
 }
